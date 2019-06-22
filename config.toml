@@ -1,0 +1,59 @@
+baseURL = "https://limitedeternity.github.io/"
+languageCode = "en-US"
+title = "limitedeternity "
+theme = "ezhil"
+publishDir = "docs/"
+
+pygmentsstyle = "vs"
+pygmentscodefences = true
+pygmentscodefencesguesssyntax = true
+
+googleAnalytics = "UA-113901111-1"
+disqusShortname = "limitedeternity"
+
+[params]
+	subtitle = "Personal blog"
+	# Number of posts to show in recent posts list.
+	recentPostsCount = 10
+	# Content types which are excluded from recent posts and archive page.
+	excludedTypes = ["page"]
+	disableDisqusTypes = ["page"]
+	featherIconsCDN = false
+
+[[menu.main]]
+name = "Main"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "All posts"
+url = "/posts"
+weight = 2
+
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 3
+
+[[menu.main]]
+name = "Tags"
+url = "/tags"
+weight = 4
+
+[[params.social]]
+name = "GitHub"
+icon = "github"
+url = "https://github.com/limitedeternity"
+
+[[params.social]]
+name = "Telegram"
+icon = "send"
+url = "https://mssg.me/r/m/5c1572fa409b90000ab4d55f"
+
+[[params.social]]
+name = "RSS"
+icon = "rss"
+url = "/index.xml"
+
+[taxonomies]
+   tag = "tags"
