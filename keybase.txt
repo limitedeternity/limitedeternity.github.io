@@ -1,0 +1,75 @@
+==================================================================
+https://keybase.io/limitedeternity
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://limitedeternity.github.io
+  * I am limitedeternity (https://keybase.io/limitedeternity) on keybase.
+  * I have a public key with fingerprint D6B6 A55A 0D59 13DE A025  096D 4DEA A605 72F6 9545
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120bfa133f7b1233fd0224d63495f9dfe4c29444c4e4c6ec2f4f011c45025e52fd60a",
+      "fingerprint": "d6b6a55a0d5913dea025096d4deaa60572f69545",
+      "host": "keybase.io",
+      "key_id": "4deaa60572f69545",
+      "kid": "010168e6f7cee567da9b09fd28dc035ba0bdcf39225a4c94027c3efc78b7b50ad88b0a",
+      "uid": "22195a0d632b55e1fa61f47ac08e0b19",
+      "username": "limitedeternity"
+    },
+    "service": {
+      "hostname": "limitedeternity.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1565789654,
+  "expire_in": 157680000,
+  "prev": "f92bf6046154cb470a8436a805441ea247ba681cb50331ba31d32662b4ccdac9",
+  "seqno": 21,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.1.3
+Comment: https://keybase.io/crypto
+
+yMN6AnicbVJ9UBRlGL+jToqiIEARidEFpxSC/Xh39/ZIUAkaLxkDzmmEg2Pf3Xdh
++bg99hYKEfxCEYIQKTPG+GgEzZhpEFMKhxE7nAQ0QUWLMYv8SMYZMo2yabI9yv98
+/3me93l/v9/ze555Pf5PGPyMqdNdJnX2g2TjyGB3qSHb5j9RgUFFLMcsFVghmguo
+SERuzVEoi5gFwwkShxJPUJTEQoLUg4iTJBAZCnC0xIkSAgLJAQAEoGcMEkgJSDhB
+CIDGSRrRpCQyOI/FYJLszEOqS5Wdmi4rMpDhaZrHRZojKBHxOhjnGBHoKc/gNEtK
+DEcDWifmK24vQzcHeTeKlRW9pl8cc/Yeg3/kGycYM2IkVkCIZliR5yDOSSJpFgWc
+oiGPQ1GQKI4kaR4IHMBJVqCQJLBmyEIa50WzGc75Lp2TI0mC87plKBLSNCIkniEk
+wPICbkY4JDgv0I1UJ1+MdHSRXCxrSESaXpG1cqwyBtMfy2QBeffrHejxwNg8Wcsv
+hf/N6FIVTRGUIh2Wr2kut8Uro5W7vLy3EXT8r+iAslPUd6szypDqlhUnZiF0pKDJ
+3hYEzdCsmWNoEIOhd1yyihyyF0GzjBnXj7cPKtMlJY6EEoMDhqCBAAGL82ZAMbwZ
+pwEgEE8CFvKMmRD05VAUAXmKECmSYUgIBEHkBe8G3KjEqWAWktB98nm6plvOc/Ja
+qYqwylOD9icNRj/DPJOP99MZ/J4OePQVa84FGAZOXnBsHD5X9oYnaDyuqn/P2lXU
+3aC91w7d/f1ObcOJHcUeT7olgc5861Zh9o+McN7njmfXgSbNefWpgTprXEZWwZqh
+BCLEPjEFs6dHhGeW5Hx56cJvgbH//PCLlGzvnrlmf02e8Kvb/eaLauNsdVTEyztn
+5z0sIeqJ4/2Lwz+sMT5oMa1NMdUEFNatm/TP+FjZ0p7ZZlEMyZETr6rLxk+P9n61
+szCsIeMYaLrUVd2S0oqNWToy1yecUtsKeloOKn1F1YfcHTuYhAMbGlFW+crNnqt/
+ftN/r7O4ds31b3M336yY39zaE93eeKbzRs/nWdbl18/nLoqP//X+2L2cV7IfXFkN
+v0ssmWqKrA9MHAnLt1wsDt142Hdq9fpm2hiSNBqjHhnY0GMacpwI3E/c+Ohs5HuH
+E0Pvxz80Rb4bnZ77WejNrLTFC4yJz7dnNtRvilhn2z94uqLlytJ4e8Ttlc2fblNO
+oq0reut6fV+wBX9SuWz7FqzKkmQqMr3/3JGxkGFq0+W0W99vCzrjW5uw9GhQX4Nl
+fnXAz9P7vmja42P9I4pqHKqDy7e3pUWdDbe1zHTnR2NlF/cujPXvnJic5goyj3al
+vtTnM/lXnMzlLPx7CZjeZx0HYY0/Gas6bG0+9lSH83j611b1dnBSATbsWvS63Lb1
+4IqU9GeTjs0sCA7YjVnDs3e1Kraa0cv/Alj+u2g=
+=3S/w
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/limitedeternity
+
+==================================================================
