@@ -46,11 +46,6 @@ icon = "github"
 url = "https://github.com/limitedeternity"
 
 [[params.social]]
-name = "Telegram"
-icon = "send"
-url = "https://mssg.me/r/m/5c1572fa409b90000ab4d55f"
-
-[[params.social]]
 name = "RSS"
 icon = "rss"
 url = "/index.xml"
