@@ -2,7 +2,7 @@ baseURL = "https://limitedeternity.github.io/"
 languageCode = "en-US"
 title = "limitedeternity "
 theme = "ezhil"
-publishDir = "blog-pages/"
+publishDir = "docs/"
 
 pygmentsstyle = "vs"
 pygmentscodefences = true

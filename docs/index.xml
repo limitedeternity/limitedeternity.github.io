@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>limitedeternity </title>
+    <link>https://limitedeternity.github.io/</link>
+    <description>Recent content on limitedeternity </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Mon, 17 Aug 2020 12:27:10 +0300</lastBuildDate>
+    
+	<atom:link href="https://limitedeternity.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[HackTheBox] Enterprise machine writeup (Checkpoint style)</title>
+      <link>https://limitedeternity.github.io/posts/htb-enterprise-writeup/</link>
+      <pubDate>Mon, 17 Aug 2020 12:27:10 +0300</pubDate>
+      
+      <guid>https://limitedeternity.github.io/posts/htb-enterprise-writeup/</guid>
+      <description>Legend:  [*] – Info [+] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg
+Checkpoints: [*] 443/tcp: Apache 2.4.25
+[*] Possible hostname: enterprise.local / enterprise.htb
+[+] Username: jeanlucpicard
+[+] Interesting endpoint: /files (Status: 301)
+[+] Interesting file: /files/lcars.zip
+[!] PHP files!
+ [*] Mentions &amp;ldquo;wp-config.php&amp;rdquo;. This is WordPress plugin. Moving to 80/tcp.  ===========
+[*] 80/tcp: Apache 2.</description>
+    </item>
+    
+    <item>
+      <title>Info about &#34;Plaintain&#34; transport card used in Saint-Petersburg, Russia</title>
+      <link>https://limitedeternity.github.io/posts/mifare-plaintain/</link>
+      <pubDate>Tue, 01 Oct 2019 21:40:20 +0300</pubDate>
+      
+      <guid>https://limitedeternity.github.io/posts/mifare-plaintain/</guid>
+      <description>  </description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://limitedeternity.github.io/about/</link>
+      <pubDate>Sat, 22 Jun 2019 20:27:48 +0300</pubDate>
+      
+      <guid>https://limitedeternity.github.io/about/</guid>
+      <description>Hello! My nickname is Marise Hayashi (limitedeternity). I&amp;rsquo;m a software developer and a student of Herzen RSPU. There I&amp;rsquo;ll publish my thoughts and researches.</description>
+    </item>
+    
+  </channel>
+</rss>
