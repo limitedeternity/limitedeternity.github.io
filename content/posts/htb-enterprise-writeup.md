@@ -1,5 +1,5 @@
 ---
-title: '[HackTheBox] Enterprise machine writeup (Checkpoint style)'
+title: '[HackTheBox] "Enterprise" machine writeup (Checkpoint style)'
 date: 2020-08-17T12:27:10+03:00
 tags: [writeup]
 ---
@@ -131,9 +131,9 @@ Your in the Holodeck!
 ```
 
 `[-]` Trying SSH bruteforce using hydra:
-
-`root@parrot# hydra -L users.txt -P passwordlist.txt -e nsr -s 22 -o "/media/psf/Home/Downloads/results/10.10.10.61/scans/tcp_22_ssh_hydra.txt" ssh://10.10.10.61`
-
+```
+root@parrot# hydra -L users.txt -P passwordlist.txt -e nsr -s 22 -o "/media/psf/Home/Downloads/results/10.10.10.61/scans/tcp_22_ssh_hydra.txt" ssh://10.10.10.61
+```
 `[*]` Moving to **8080/tcp**.
 
 `===========`
@@ -175,7 +175,7 @@ Your in the Holodeck!
 
 `[+]` Logged in as `geordi.la.forge` to **/administrator**. Uploading webshell.
 
-`[+]` Jumped to reverse TCP shell.
+`[+]` Jumped to a reverse TCP shell.
 
 `[-]` We are inside of Docker container
 
@@ -236,7 +236,7 @@ www-data@a7018bfdc454:/var/www/html$ mount -l
 
 `[+]` Copied webshell to **/files**.
 
-`[+]` Jumped to reverse TCP shell.
+`[+]` Jumped to a reverse TCP shell.
 
 `[+]` Got **user.txt**! Proceeding to rooting the box.
 

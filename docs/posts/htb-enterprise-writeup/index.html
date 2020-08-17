@@ -2,8 +2,8 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>[HackTheBox] Enterprise machine writeup (Checkpoint style) - limitedeternity </title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="[HackTheBox] Enterprise machine writeup (Checkpoint style)" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>[HackTheBox] &#34;Enterprise&#34; machine writeup (Checkpoint style) - limitedeternity </title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="[HackTheBox] &#34;Enterprise&#34; machine writeup (Checkpoint style)" />
 <meta property="og:description" content="Legend:  [*] – Info [&#43;] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg
 Checkpoints: [*] 443/tcp: Apache 2.4.25
 [*] Possible hostname: enterprise.local / enterprise.htb
@@ -18,7 +18,7 @@ Checkpoints: [*] 443/tcp: Apache 2.4.25
 <meta property="article:published_time" content="2020-08-17T12:27:10+03:00" />
 <meta property="article:modified_time" content="2020-08-17T12:27:10+03:00" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="[HackTheBox] Enterprise machine writeup (Checkpoint style)"/>
+<meta name="twitter:title" content="[HackTheBox] &#34;Enterprise&#34; machine writeup (Checkpoint style)"/>
 <meta name="twitter:description" content="Legend:  [*] – Info [&#43;] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg
 Checkpoints: [*] 443/tcp: Apache 2.4.25
 [*] Possible hostname: enterprise.local / enterprise.htb
@@ -68,7 +68,7 @@ Checkpoints: [*] 443/tcp: Apache 2.4.25
 
 
 		<div class="post-header">
-			<h1 class="title">[HackTheBox] Enterprise machine writeup (Checkpoint style)</h1>
+			<h1 class="title">[HackTheBox] &#34;Enterprise&#34; machine writeup (Checkpoint style)</h1>
 			<div class="meta">Posted at &mdash; Aug 17, 2020</div>
 		</div>
 
@@ -184,8 +184,8 @@ This is not the Enterprise!
 As you try to interact with a console it dawns on you.
 Your in the Holodeck!
 </code></pre></div><p><code>[-]</code> Trying SSH bruteforce using hydra:</p>
-<p><code>root@parrot# hydra -L users.txt -P passwordlist.txt -e nsr -s 22 -o &quot;/media/psf/Home/Downloads/results/10.10.10.61/scans/tcp_22_ssh_hydra.txt&quot; ssh://10.10.10.61</code></p>
-<p><code>[*]</code> Moving to <strong>8080/tcp</strong>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">root@parrot# hydra -L users.txt -P passwordlist.txt -e nsr -s 22 -o &#34;/media/psf/Home/Downloads/results/10.10.10.61/scans/tcp_22_ssh_hydra.txt&#34; ssh://10.10.10.61
+</code></pre></div><p><code>[*]</code> Moving to <strong>8080/tcp</strong>.</p>
 <p><code>===========</code></p>
 <p><code>[*]</code> <strong>8080/tcp</strong>: Apache 2.4.10 + Joomla 3.7.5</p>
 <p><code>[*]</code> X-Powered-By: PHP/7.0.23</p>
@@ -220,7 +220,7 @@ Your in the Holodeck!
 <p><code>[+]</code> Logged in as <code>guinan</code> to <strong>/</strong>.</p>
 <p><code>[-]</code> No access to <strong>/administrator</strong></p>
 <p><code>[+]</code> Logged in as <code>geordi.la.forge</code> to <strong>/administrator</strong>. Uploading webshell.</p>
-<p><code>[+]</code> Jumped to reverse TCP shell.</p>
+<p><code>[+]</code> Jumped to a reverse TCP shell.</p>
 <p><code>[-]</code> We are inside of Docker container</p>
 <p><code>[*]</code> <strong>/home/user.txt</strong>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">As you take a look around at your surroundings you realise there is something wrong.
@@ -261,7 +261,7 @@ a7018bfdc454 [172.17.0.3] 80 (http) open
 </code></pre></div><p><code>[!]</code> <strong>/files</strong> sound familiar, isn&rsquo;t it? Even contents are the same.</p>
 <p><code>[!]</code> We&rsquo;ve seen <strong>/files</strong> endpoint on <strong>443/tcp</strong>. And <strong>443/tcp</strong> is open only on host.</p>
 <p><code>[+]</code> Copied webshell to <strong>/files</strong>.</p>
-<p><code>[+]</code> Jumped to reverse TCP shell.</p>
+<p><code>[+]</code> Jumped to a reverse TCP shell.</p>
 <p><code>[+]</code> Got <strong>user.txt</strong>! Proceeding to rooting the box.</p>
 <p><code>============</code></p>
 <p><code>[!]</code> <code>linpeas.sh</code> showed unusual binary <strong>/bin/lcars</strong> which has SUID bit set.</p>
