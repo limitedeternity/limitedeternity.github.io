@@ -6,10 +6,25 @@
     <description>Recent content in writeup on limitedeternity </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Mon, 17 Aug 2020 12:27:10 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 21 Aug 2020 01:27:10 +0300</lastBuildDate>
     
 	<atom:link href="https://limitedeternity.github.io/tags/writeup/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[HackTheBox] &#34;Calamity&#34; machine writeup (Checkpoint style)</title>
+      <link>https://limitedeternity.github.io/posts/htb-calamity-writeup/</link>
+      <pubDate>Fri, 21 Aug 2020 01:27:10 +0300</pubDate>
+      
+      <guid>https://limitedeternity.github.io/posts/htb-calamity-writeup/</guid>
+      <description>Legend:  [*] – Info [+] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/YYFxCaJb#0hvxc6kq2zmTHrUp7qcerg
+Checkpoints: [*] 80/tcp: Apache 2.4.18
+[*] wfuzz:
+ /admin.php /uploads (has listing)  [+] $ curl http://10.10.10.27/admin.php yields password.
+[+] Logged in as admin.
+[+] The most elite RCE there.
+&amp;lt;?php sleep(10); ?&amp;gt; [*] We&amp;rsquo;ll use it to upload a shell to /uploads.</description>
+    </item>
     
     <item>
       <title>[HackTheBox] &#34;Enterprise&#34; machine writeup (Checkpoint style)</title>

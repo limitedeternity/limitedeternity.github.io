@@ -1,7 +1,7 @@
 ---
 title: '[HackTheBox] "Enterprise" machine writeup (Checkpoint style)'
 date: 2020-08-17T12:27:10+03:00
-tags: [writeup]
+tags: [writeup, binary-exploit, hackthebox]
 ---
 
 ## Legend:
@@ -399,6 +399,6 @@ $2 = {<text variable, no debug info>} 0xf7e3faf0 <exit>
 ```
 `[!]` `exit` function is at **0xf7e3faf0**.
 
-`[+]` We're ready to create an exploit now! (`exploit/bof.py`)
+`[+]` We're ready to create an exploit now!
 
 `[+]` Got **root.txt**!

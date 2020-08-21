@@ -3,27 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://limitedeternity.github.io/posts/htb-enterprise-writeup/</loc>
-    <lastmod>2020-08-17T12:27:10+03:00</lastmod>
+    <loc>https://limitedeternity.github.io/posts/htb-calamity-writeup/</loc>
+    <lastmod>2020-08-21T01:27:10+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://limitedeternity.github.io/tags/binary-exploit/</loc>
+    <lastmod>2020-08-21T01:27:10+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://limitedeternity.github.io/tags/hackthebox/</loc>
+    <lastmod>2020-08-21T01:27:10+03:00</lastmod>
   </url>
   
   <url>
     <loc>https://limitedeternity.github.io/</loc>
-    <lastmod>2020-08-17T12:27:10+03:00</lastmod>
+    <lastmod>2020-08-21T01:27:10+03:00</lastmod>
   </url>
   
   <url>
     <loc>https://limitedeternity.github.io/posts/</loc>
-    <lastmod>2020-08-17T12:27:10+03:00</lastmod>
+    <lastmod>2020-08-21T01:27:10+03:00</lastmod>
   </url>
   
   <url>
     <loc>https://limitedeternity.github.io/tags/</loc>
-    <lastmod>2020-08-17T12:27:10+03:00</lastmod>
+    <lastmod>2020-08-21T01:27:10+03:00</lastmod>
   </url>
   
   <url>
     <loc>https://limitedeternity.github.io/tags/writeup/</loc>
+    <lastmod>2020-08-21T01:27:10+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://limitedeternity.github.io/posts/htb-enterprise-writeup/</loc>
     <lastmod>2020-08-17T12:27:10+03:00</lastmod>
   </url>
   
