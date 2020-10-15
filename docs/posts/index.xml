@@ -6,18 +6,14 @@
     <description>Recent content in Posts on limitedeternity </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Fri, 21 Aug 2020 01:27:10 +0300</lastBuildDate>
-    
-	<atom:link href="https://limitedeternity.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 21 Aug 2020 01:27:10 +0300</lastBuildDate><atom:link href="https://limitedeternity.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[HackTheBox] &#34;Calamity&#34; machine writeup (Checkpoint style)</title>
       <link>https://limitedeternity.github.io/posts/htb-calamity-writeup/</link>
       <pubDate>Fri, 21 Aug 2020 01:27:10 +0300</pubDate>
       
       <guid>https://limitedeternity.github.io/posts/htb-calamity-writeup/</guid>
-      <description>Legend:  [*] – Info [+] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/YYFxCaJb#0hvxc6kq2zmTHrUp7qcerg
+      <description>Legend:  [*] – Info [+] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://github.com/limitedeternity/HackTheBox/tree/main/Machines/CALAMITY
 Checkpoints: [*] 80/tcp: Apache 2.4.18
 [*] wfuzz:
  /admin.php /uploads (has listing)  [+] $ curl http://10.10.10.27/admin.php yields password.
@@ -32,7 +28,7 @@ Checkpoints: [*] 80/tcp: Apache 2.4.18
       <pubDate>Mon, 17 Aug 2020 12:27:10 +0300</pubDate>
       
       <guid>https://limitedeternity.github.io/posts/htb-enterprise-writeup/</guid>
-      <description>Legend:  [*] – Info [+] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg
+      <description>Legend:  [*] – Info [+] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://github.com/limitedeternity/HackTheBox/tree/main/Machines/ENTERPRISE
 Checkpoints: [*] 443/tcp: Apache 2.4.25
 [*] Possible hostname: enterprise.local / enterprise.htb
 [+] Username: jeanlucpicard

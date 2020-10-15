@@ -13,7 +13,7 @@ tags: [writeup, binary-exploit, hackthebox]
 - `==========` – Next stage
 
 ## Files:
-https://mega.nz/folder/YYFxCaJb#0hvxc6kq2zmTHrUp7qcerg
+https://github.com/limitedeternity/HackTheBox/tree/main/Machines/CALAMITY
 
 ## Checkpoints:
 `[*]` **80/tcp**: Apache 2.4.18

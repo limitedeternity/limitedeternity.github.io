@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>[HackTheBox] &#34;Enterprise&#34; machine writeup (Checkpoint style) - limitedeternity </title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta property="og:title" content="[HackTheBox] &#34;Enterprise&#34; machine writeup (Checkpoint style)" />
-<meta property="og:description" content="Legend:  [*] – Info [&#43;] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg
+<meta property="og:description" content="Legend:  [*] – Info [&#43;] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://github.com/limitedeternity/HackTheBox/tree/main/Machines/ENTERPRISE
 Checkpoints: [*] 443/tcp: Apache 2.4.25
 [*] Possible hostname: enterprise.local / enterprise.htb
 [&#43;] Username: jeanlucpicard
@@ -19,7 +19,7 @@ Checkpoints: [*] 443/tcp: Apache 2.4.25
 <meta property="article:modified_time" content="2020-08-17T12:27:10+03:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[HackTheBox] &#34;Enterprise&#34; machine writeup (Checkpoint style)"/>
-<meta name="twitter:description" content="Legend:  [*] – Info [&#43;] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg
+<meta name="twitter:description" content="Legend:  [*] – Info [&#43;] – Progress [-] – No use / Dead end [!] – Important [?] – Maybe useful ========== – Next stage  Files: https://github.com/limitedeternity/HackTheBox/tree/main/Machines/ENTERPRISE
 Checkpoints: [*] 443/tcp: Apache 2.4.25
 [*] Possible hostname: enterprise.local / enterprise.htb
 [&#43;] Username: jeanlucpicard
@@ -83,7 +83,7 @@ Checkpoints: [*] 443/tcp: Apache 2.4.25
 <li><code>==========</code> – Next stage</li>
 </ul>
 <h2 id="files">Files:</h2>
-<p><a href="https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg">https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg</a></p>
+<p><a href="https://github.com/limitedeternity/HackTheBox/tree/main/Machines/ENTERPRISE">https://github.com/limitedeternity/HackTheBox/tree/main/Machines/ENTERPRISE</a></p>
 <h2 id="checkpoints">Checkpoints:</h2>
 <p><code>[*]</code> <strong>443/tcp</strong>: Apache 2.4.25</p>
 <p><code>[*]</code> Possible hostname: <strong>enterprise.local</strong> / <strong>enterprise.htb</strong></p>
@@ -122,13 +122,13 @@ Checkpoints: [*] 443/tcp: Apache 2.4.25
 <ul>
 <li>Location: <a href="http://enterprise.htb/wp-content/plugins/lcars/lcars_db.php:">http://enterprise.htb/wp-content/plugins/lcars/lcars_db.php:</a></li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">    $query = $_GET[&#39;query&#39;];
-    $sql = &#34;SELECT ID FROM wp_posts WHERE post_name = $query&#34;;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">    $query = $_GET[<span style="color:#a31515">&#39;query&#39;</span>];
+    $sql = <span style="color:#a31515">&#34;SELECT ID FROM wp_posts WHERE post_name = </span><span style="color:#a31515">$query</span><span style="color:#a31515">&#34;</span>;
 </code></pre></div><ul>
 <li>Location: <a href="http://enterprise.htb/wp-content/plugins/lcars/lcars_dbpost.php:">http://enterprise.htb/wp-content/plugins/lcars/lcars_dbpost.php:</a></li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">    $query = (int)$_GET[&#39;query&#39;];
-    $sql = &#34;SELECT post_title FROM wp_posts WHERE ID = $query&#34;;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">    $query = (int)$_GET[<span style="color:#a31515">&#39;query&#39;</span>];
+    $sql = <span style="color:#a31515">&#34;SELECT post_title FROM wp_posts WHERE ID = </span><span style="color:#a31515">$query</span><span style="color:#a31515">&#34;</span>;
 </code></pre></div><p><code>[!]</code> <code>$_GET['query']</code> in <code>lcars_db.php</code> is vulnerable to SQL injection!</p>
 <p><code>[*]</code> <a href="http://enterprise.htb/wp-content/plugins/lcars/lcars_dbpost.php?query=69">http://enterprise.htb/wp-content/plugins/lcars/lcars_dbpost.php?query=69</a> yields &ldquo;YAYAYAYAY.&rdquo;</p>
 <p><code>[*]</code> <a href="http://enterprise.htb/?p=69">http://enterprise.htb/?p=69</a> is &ldquo;YAYAYAYAY.&rdquo; post.</p>
@@ -139,12 +139,12 @@ Checkpoints: [*] 443/tcp: Apache 2.4.25
 </ul>
 <p><code>[+]</code> &ldquo;wordpress&rdquo; database:</p>
 <ul>
-<li><code>[+]</code> Extracted <code>william.riker</code>'s password hash.</li>
+<li><code>[+]</code> Extracted <code>william.riker</code>&rsquo;s password hash.</li>
 <li><code>[+]</code> Found clear-text passwords inside a drafted post.</li>
 </ul>
 <p><code>[+]</code> &ldquo;joomladb&rdquo; database:</p>
 <ul>
-<li><code>[+]</code> Extracted <code>geordi.la.forge</code>'s and <code>guinan</code>'s password hashes.</li>
+<li><code>[+]</code> Extracted <code>geordi.la.forge</code>&rsquo;s and <code>guinan</code>&rsquo;s password hashes.</li>
 </ul>
 <p><code>[+]</code> Building custom password list for JTR and running it against hashes.</p>
 <!-- raw HTML omitted -->

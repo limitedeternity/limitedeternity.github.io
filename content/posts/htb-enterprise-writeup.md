@@ -13,7 +13,7 @@ tags: [writeup, binary-exploit, hackthebox]
 - `==========` – Next stage
 
 ## Files:
-https://mega.nz/folder/QNFVDa4I#zkNofatfEJfrl2KSw2H-yg
+https://github.com/limitedeternity/HackTheBox/tree/main/Machines/ENTERPRISE
 
 ## Checkpoints:
 
